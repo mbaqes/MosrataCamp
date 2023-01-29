@@ -1,16 +1,18 @@
 package ly.umbrella.mosratacamp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import cn.pedant.SweetAlert.SweetAlertDialog
 import ly.umbrella.mosratacamp.loginpage.data.entity.UserEntity
 import ly.umbrella.mosratacamp.loginpage.data.viewmodel.LoginViewModel
 import ly.umbrella.mosratacamp.loginpage.recurce.Recurce
+
 
 class MainActivity : AppCompatActivity() {
   val vmLogin:LoginViewModel by viewModels()
@@ -30,10 +32,14 @@ class MainActivity : AppCompatActivity() {
         var observer =Observer<Recurce<UserEntity>>{
            when(it){
                is Recurce.Succusfuly<UserEntity>->{
-                   isok.text ="Okkkkk"
+                   SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                       .setTitleText("Mosrata Camp")
+                       .setContentText("You Are Login IN Successfully").show()
                }
                is Recurce.Error<UserEntity>->{
-                   isok.text = "Error !!!!!"
+                   SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                       .setTitleText("Mosrata Camp")
+                       .setContentText("Something went wrong!").show()
                }
            }
         }
